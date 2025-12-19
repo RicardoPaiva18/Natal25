@@ -118,7 +118,7 @@
 
     <!-- CONTEÚDO FINAL -->
     <div id="content">
-      <h1>Mensagem de Natal</h1>
+      <h1>Postal de Natal</h1>
 
       <img
         src="images/Img1.jpeg"
@@ -153,7 +153,6 @@ de Natal.
   </div>
 
   <script>
-    const KEY = "natal_mensagem_aberta";
 
     function showMessage() {
       const intro = document.getElementById("intro");
@@ -173,29 +172,11 @@ de Natal.
         requestAnimationFrame(() => content.classList.add("show"));
       }, 200);
 
-      // Guarda estado
-      try { localStorage.setItem(KEY, "1"); } catch (e) {}
     }
 
     // Clique no coração
     document.getElementById("heart").addEventListener("click", showMessage);
 
-    // Se já foi aberto antes, mostra logo (persistência)
-    (function restoreState() {
-      try {
-        if (localStorage.getItem(KEY) === "1") {
-          // abre imediatamente sem delay (para não ser irritante)
-          const intro = document.getElementById("intro");
-          const content = document.getElementById("content");
-          const heart = document.getElementById("heart");
-
-          heart.classList.remove("pulse");
-          intro.style.display = "none";
-          content.style.display = "block";
-          requestAnimationFrame(() => content.classList.add("show"));
-        }
-      } catch (e) {}
-    })();
   </script>
 </body>
 </html>
