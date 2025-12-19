@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Mensagem de Natal 2025</title>
+  <title>Postal de Natal 2025</title>
 
   <style>
     body {
@@ -42,13 +41,21 @@
       border-radius: 14px;
     }
 
+    /* Coração: clicável + animação */
     .clickable {
       cursor: pointer;
-      transition: transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
-    .clickable:hover {
-      transform: scale(1.05);
+    @keyframes pulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 1.6s ease-in-out infinite;
     }
 
     /* Secções */
@@ -58,6 +65,15 @@
 
     #content {
       display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      text-align: left;
+    }
+
+    #content.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     pre {
@@ -66,27 +82,38 @@
       font-size: 16px;
       line-height: 1.5;
       margin-top: 20px;
-      text-align: left;
+      margin-bottom: 0;
       font-family: inherit;
+      color: #111;
+    }
+
+    /* Dark mode (opcional mas seguro) */
+    @media (prefers-color-scheme: dark) {
+      body { background-color: #0f0f10; color: #f2f2f2; }
+      .container {
+        background: #1a1a1c;
+        color: #f2f2f2;
+        box-shadow: none;
+        border: 1px solid rgba(255,255,255,0.12);
+      }
+      .hint { color: rgba(242,242,242,0.75); }
+      pre { color: #f2f2f2; }
     }
   </style>
 </head>
 
 <body>
-
   <div class="container">
 
     <!-- ECRÃ INICIAL -->
     <div id="intro">
       <img
+        id="heart"
         src="images/CoracaoNatal.png"
         alt="Coração de Natal"
-        class="clickable"
-        onclick="mostrarMensagem()"
+        class="clickable pulse"
       >
-      <div class="hint">
-        Clica no coração
-      </div>
+      <div class="hint">Clica no coração</div>
     </div>
 
     <!-- CONTEÚDO FINAL -->
@@ -126,11 +153,49 @@ de Natal.
   </div>
 
   <script>
-    function mostrarMensagem() {
-      document.getElementById("intro").style.display = "none";
-      document.getElementById("content").style.display = "block";
-    }
-  </script>
+    const KEY = "natal_mensagem_aberta";
 
+    function showMessage() {
+      const intro = document.getElementById("intro");
+      const content = document.getElementById("content");
+      const heart = document.getElementById("heart");
+
+      // Para a animação do coração
+      heart.classList.remove("pulse");
+
+      // Esconde intro
+      intro.style.display = "none";
+
+      // Mostra content (com pequeno atraso para efeito)
+      content.style.display = "block";
+
+      setTimeout(() => {
+        requestAnimationFrame(() => content.classList.add("show"));
+      }, 200);
+
+      // Guarda estado
+      try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    }
+
+    // Clique no coração
+    document.getElementById("heart").addEventListener("click", showMessage);
+
+    // Se já foi aberto antes, mostra logo (persistência)
+    (function restoreState() {
+      try {
+        if (localStorage.getItem(KEY) === "1") {
+          // abre imediatamente sem delay (para não ser irritante)
+          const intro = document.getElementById("intro");
+          const content = document.getElementById("content");
+          const heart = document.getElementById("heart");
+
+          heart.classList.remove("pulse");
+          intro.style.display = "none";
+          content.style.display = "block";
+          requestAnimationFrame(() => content.classList.add("show"));
+        }
+      } catch (e) {}
+    })();
+  </script>
 </body>
 </html>
