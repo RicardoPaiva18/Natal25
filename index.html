@@ -6,82 +6,99 @@
 
   <title>Mensagem de Natal 2025</title>
 
-<style>
-  /* Nota: mantemos o site simples e previsível em iOS */
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                 Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 24px;
-    background-color: #f4f4f4;
-    color: #111;              /* FIX: cor do texto */
-  }
-
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    background: #ffffff;
-    color: #111;              /* FIX: cor do texto dentro do card */
-    padding: 24px;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  }
-
-  h1 {
-    margin-top: 0;
-    font-size: 22px;
-    color: #111;              /* FIX */
-  }
-
-  .meta {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-
-  pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0;
-    font-family: inherit;
-    color: #111;              /* FIX */
-  }
-
-  .footer {
-    margin-top: 24px;
-    font-size: 12px;
-    color: #888;
-    text-align: center;
-  }
-
-  /* Dark mode: fundo escuro + texto claro, sem “inversões” estranhas */
-  @media (prefers-color-scheme: dark) {
+  <style>
     body {
-      background-color: #0f0f10;
-      color: #f2f2f2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 24px;
+      background-color: #f4f4f4;
+      color: #111;
+      text-align: center;
     }
-    .container {
-      background: #1a1a1c;
-      color: #f2f2f2;
-      box-shadow: none;
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    h1, pre { color: #f2f2f2; }
-    .meta { color: rgba(242,242,242,0.72); }
-    .footer { color: rgba(242,242,242,0.55); }
-  }
-</style>
 
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .hint {
+      font-size: 16px;
+      margin-top: 12px;
+      color: #444;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 14px;
+    }
+
+    .clickable {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .clickable:hover {
+      transform: scale(1.05);
+    }
+
+    /* Secções */
+    #intro {
+      display: block;
+    }
+
+    #content {
+      display: none;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 20px;
+      text-align: left;
+      font-family: inherit;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Mensagem de Natal</h1>
-    <div class="meta">Natal 2025</div>
 
-    <pre>
+  <div class="container">
+
+    <!-- ECRÃ INICIAL -->
+    <div id="intro">
+      <img
+        src="images/CoracaoNatal.png"
+        alt="Coração de Natal"
+        class="clickable"
+        onclick="mostrarMensagem()"
+      >
+      <div class="hint">
+        Clica no coração
+      </div>
+    </div>
+
+    <!-- CONTEÚDO FINAL -->
+    <div id="content">
+      <h1>Mensagem de Natal</h1>
+
+      <img
+        src="images/Img1.jpeg"
+        alt="Imagem especial"
+      >
+
+      <pre>
 Este conteúdo foi criado para não depender de:
 - servidores
 - modas tecnológicas
@@ -96,18 +113,24 @@ afilhado pode pedir.
 Obrigado por tudo o que me ensinaste e por
 ouvires os problemas e histórias que a vida apresenta.
 
-Love you 
+Love you
 Natal 2025
 
 Resultado esperado:
 Um sorriso hoje e sempre que
 abrires esta mensagem secreta
 de Natal.
-    </pre>
-
-    <div class="footer">
-      Página simples e estática, pensada para durar.
+      </pre>
     </div>
+
   </div>
+
+  <script>
+    function mostrarMensagem() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }
+  </script>
+
 </body>
 </html>
